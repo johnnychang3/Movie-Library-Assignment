@@ -19,7 +19,7 @@ namespace Movie_Library_Assignment
         
         public Movie()
         {
-            string file = "C:\\Users\\Johnny\\source\\repos\\DotNet\\Movie Library Assignment\\movies.csv";
+            string file = $"{Environment.CurrentDirectory}\\movies.csv";
             StreamReader sr = new StreamReader(file);
             var lastId = "";
             string[] arr = null;

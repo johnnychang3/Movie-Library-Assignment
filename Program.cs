@@ -10,7 +10,7 @@ namespace Movie_Library_Assignment
     {
         static void Main(string[] args)
         {
-            string file = "C:\\Users\\Johnny\\source\\repos\\DotNet\\Movie Library Assignment\\movies.csv";
+            string file = $"{Environment.CurrentDirectory}\\movies.csv";
 
             if (!File.Exists(file))
             {
@@ -131,8 +131,7 @@ namespace Movie_Library_Assignment
                                 }
                                 else if (userInput == 2)
                                 {
-                                    disExit = true;
-                                    break;
+                                    disExit = true;                                   
                                 }
                                 else
                                 {
