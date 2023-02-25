@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movie_Library_Assignment
+namespace Movie_Library_Assignment.Services
 {
     internal class Genre
     {
@@ -75,6 +75,6 @@ namespace Movie_Library_Assignment
 }
 
 
-    
+
 
 

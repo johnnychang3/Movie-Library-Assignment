@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movie_Library_Assignment
+namespace Movie_Library_Assignment.Services
 {
     internal class Movie
     {
@@ -16,7 +16,7 @@ namespace Movie_Library_Assignment
         public int MovieId { get; set; }
         public List<Genre> Genres { get; set; }
 
-        
+
         public Movie()
         {
             string file = $"{Environment.CurrentDirectory}\\movies.csv";
@@ -24,7 +24,7 @@ namespace Movie_Library_Assignment
             var lastId = "";
             string[] arr = null;
             sr.ReadLine();
-            
+
             // Generate new MovieID
             while (!sr.EndOfStream)
             {
@@ -34,8 +34,8 @@ namespace Movie_Library_Assignment
 
                 lastId = arr[0];
             }
-            
-            MovieId = Int32.Parse(lastId) + 1;
+
+            MovieId = int.Parse(lastId) + 1;
             Console.WriteLine($"MovieID: {MovieId}");
             sr.Close();
 
@@ -46,7 +46,7 @@ namespace Movie_Library_Assignment
                 sr = new StreamReader(file);
                 sr.ReadLine();
 
-                while(!sr.EndOfStream)
+                while (!sr.EndOfStream)
                 {
                     var line = sr.ReadLine();
                     if (line.Contains('"'))
@@ -57,8 +57,8 @@ namespace Movie_Library_Assignment
                     {
                         arr = line.Split(',');
                     }
-                    
-                    
+
+
                     if (arr[1].ToLower() == getTitle.ToLower())
                     {
                         Console.WriteLine("Movie already exists!");
@@ -106,16 +106,16 @@ namespace Movie_Library_Assignment
                 } while (!isComplete);
             }
         }
-        
+
         //Methods
         public override string ToString()
         {
             string title = $"{Title}";
             string movieId = $"{MovieId}";
             string genres = $"";
-            foreach (Genre genre in Genres) 
-            {               
-                genres += genre + "|";               
+            foreach (Genre genre in Genres)
+            {
+                genres += genre + "|";
             }
 
             return $"{movieId},{title},{genres.Trim('|')}";
