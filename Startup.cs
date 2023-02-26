@@ -21,7 +21,9 @@ namespace Movie_Library_Assignment
                 builder.AddFile("app.log");
             });
 
+            Console.WriteLine("we are in startup");
             services.AddSingleton<IMainService, MainService>();
+            services.AddSingleton<IFileService, CsvFileService>();
 
             return services.BuildServiceProvider();
         }
