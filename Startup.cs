@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helper;
 
 namespace Movie_Library_Assignment
 {
@@ -21,9 +22,31 @@ namespace Movie_Library_Assignment
                 builder.AddFile("app.log");
             });
 
-            Console.WriteLine("we are in startup");
             services.AddSingleton<IMainService, MainService>();
-            services.AddSingleton<IFileService, CsvFileService>();
+
+            bool exit = false;
+
+            Console.WriteLine("Main Menu");
+            Console.WriteLine("---------");
+            while (!exit)
+            {
+                var userInput = Input.GetIntWithPrompt("1. CSV File Reader\n2. JSON File Reader\n3. Exit\nChoose option: ", "Choose a valid option:");
+                if (userInput == 1)
+                {
+                    services.AddSingleton<IFileService, CsvFileService>();
+                    exit = true;
+                }
+                else if (userInput == 2)
+                {
+                    services.AddSingleton<IFileService, JsonFileService>();
+                    exit = true;
+                }
+                else if (userInput == 3)
+                {
+                    Console.WriteLine("Good Bye!");
+                    Environment.Exit(0);                    
+                }
+            }
 
             return services.BuildServiceProvider();
         }
