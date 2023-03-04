@@ -10,7 +10,7 @@ namespace Movie_Library_Assignment.Models
     {
         public List<string> Format { get; set; }
         public int Length { get; set; }
-        public List<string> Regions { get; set; }
+        public List<int> Regions { get; set; }
 
         public override void Display()
         {

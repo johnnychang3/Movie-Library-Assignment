@@ -19,11 +19,14 @@ namespace Movie_Library_Assignment.Context
             _mediaContext = mediaContext;
         }
 
-        public void SearchByTypeJson() //Display all by media type
+        public void SearchByTypeJson() // Display all by media type
         {
             bool exit = false;
             do
             {
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("           Display           ");
+                Console.WriteLine("-----------------------------");
                 Console.WriteLine("Which media do you want to display?");
                 var userInput = Input.GetIntWithPrompt("1. Movies\n2. Shows\n3. Videos\n\n0. Exit\nChoose Option: ", "Please enter a valid option.");
                 Console.Clear();
@@ -37,7 +40,8 @@ namespace Movie_Library_Assignment.Context
                     {
                         item.Display();
                     }
-
+                    Console.WriteLine("Press enter to exit.");
+                    Console.ReadLine();
                     exit = true;
                 }
                 else if (userInput == 2) //Shows
@@ -50,7 +54,8 @@ namespace Movie_Library_Assignment.Context
                     {
                         item.Display();
                     }
-
+                    Console.WriteLine("Press enter to exit.");
+                    Console.ReadLine();
                     exit = true;
                 }
                 else if (userInput == 3) //Videos
@@ -63,6 +68,8 @@ namespace Movie_Library_Assignment.Context
                     {
                         item.Display();
                     }
+                    Console.WriteLine("Press enter to exit.");
+                    Console.ReadLine();
                     exit = true;
                 }
                 else if (userInput == 0) //Exit
@@ -77,13 +84,16 @@ namespace Movie_Library_Assignment.Context
             } while (!exit);
         }
 
-        public void SearchByTitleJson() //Display media by Title
+        public void SearchByTitleJson() // Display media by Title
         {
             bool exit = false;
             do
             {
                 bool match = false;
 
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("           Display           ");
+                Console.WriteLine("-----------------------------");
                 Console.WriteLine("Select Media type to search");
                 var userInput = Input.GetIntWithPrompt("1. Movies\n2. Shows\n3. Videos\n\n0. Exit\nChoose Option: ", "Choose a valid option.");
                 Console.Clear();
@@ -162,7 +172,7 @@ namespace Movie_Library_Assignment.Context
             while (!exit);
         }
 
-        public void WriteJson()
+        public void WriteJson() // Write media in json format
         {
             bool exit = false;
 
@@ -180,11 +190,11 @@ namespace Movie_Library_Assignment.Context
                 }
                 else if (userInput == 2)
                 {
-
+                    _mediaContext.WriteShowsJson();
                 }
                 else if (userInput == 3)
                 {
-
+                    _mediaContext.WriteVideosJson();
                 }
                 else if (userInput == 0)
                 {
@@ -195,7 +205,7 @@ namespace Movie_Library_Assignment.Context
                     Console.WriteLine("Please choose a valid option.");
                 }
             } while (!exit);
-        } // Write media json format
+        } 
 
     }
 }

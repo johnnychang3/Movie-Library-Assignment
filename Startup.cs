@@ -45,7 +45,10 @@ namespace Movie_Library_Assignment
                 }
                 else if (userInput == 0)
                 {
-                    Console.WriteLine("Good Bye!");
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("          Good Bye          ");
+                    Console.WriteLine("-----------------------------");
                     Environment.Exit(0);                    
                 }
             }

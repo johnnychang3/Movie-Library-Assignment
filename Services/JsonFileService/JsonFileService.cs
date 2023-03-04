@@ -17,15 +17,10 @@ namespace Movie_Library_Assignment.Services.JsonFileService
         //StreamWriter sw;
         //List<Movie> movies = new List<Movie>();
 
-        public void Menu()
+        public void Menu() // Main Menu
         {
             bool menuExit = false;
-            //if (!File.Exists(file))
-            //{
-            //    Console.WriteLine("File does not exist");
-            //}
-            //else
-            //{
+
             Console.Clear();
             while (!menuExit)
             {
@@ -48,15 +43,15 @@ namespace Movie_Library_Assignment.Services.JsonFileService
                     case 0:
                         menuExit = true;
                         Console.Clear();
-                        Console.WriteLine("Good Bye!\n");
+                        Console.WriteLine("-----------------------------");
+                        Console.WriteLine("          Good Bye          ");
+                        Console.WriteLine("-----------------------------");
                         break;
                 }
             }
-            //}
-
         }
 
-        public void Write()
+        public void Write() // Write
         {
             MediaContext context = new MediaContext();
             Repository repo = new Repository(context);
@@ -69,7 +64,7 @@ namespace Movie_Library_Assignment.Services.JsonFileService
         }
 
 
-        public void Display()
+        public void Display() // Display
         {
             MediaContext context = new MediaContext();
             Repository repo = new Repository(context);
@@ -82,19 +77,21 @@ namespace Movie_Library_Assignment.Services.JsonFileService
                 Console.WriteLine("-----------------------------");
                 var userInput = Input.GetIntWithPrompt("1. Display Media by Type\n2. Display Media by Title\n\n0. Exit\nChoose Option: ", "Choose a valid option: ");
 
-                if (userInput == 1)
+                if (userInput == 1) // Display by Type
                 {
                     Console.Clear();
                     repo.SearchByTypeJson();
 
                     exit = true;
                 }
-                else if (userInput == 2)
+                else if (userInput == 2) // Display by Title
                 {
                     Console.Clear();
                     repo.SearchByTitleJson();
+
+                    exit = true;
                 }
-                else if (userInput == 0)
+                else if (userInput == 0) // Exit
                 {
                     Console.Clear();
                     exit = true;
@@ -104,8 +101,6 @@ namespace Movie_Library_Assignment.Services.JsonFileService
                     Console.Clear();
                     Console.WriteLine("Choose a valid option");
                 }
-                Console.WriteLine("Press enter to exit.");
-                Console.ReadLine();
             } while (!exit);
         }
     }
