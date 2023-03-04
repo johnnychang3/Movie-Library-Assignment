@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Helper;
+using Movie_Library_Assignment.Services.CSVFileService;
+using Movie_Library_Assignment.Services.JsonFileService;
 
 namespace Movie_Library_Assignment
 {
@@ -25,12 +27,12 @@ namespace Movie_Library_Assignment
             services.AddSingleton<IMainService, MainService>();
 
             bool exit = false;
-
-            Console.WriteLine("Main Menu");
-            Console.WriteLine("---------");
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine("          Main Menu          ");
+            Console.WriteLine("-----------------------------");
             while (!exit)
             {
-                var userInput = Input.GetIntWithPrompt("1. CSV File Reader\n2. JSON File Reader\n3. Exit\nChoose option: ", "Choose a valid option:");
+                var userInput = Input.GetIntWithPrompt("1. CSV File Reader\n2. JSON File Reader\n\n0. Exit\nChoose option: ", "Choose a valid option: ");
                 if (userInput == 1)
                 {
                     services.AddSingleton<IFileService, CsvFileService>();
@@ -41,7 +43,7 @@ namespace Movie_Library_Assignment
                     services.AddSingleton<IFileService, JsonFileService>();
                     exit = true;
                 }
-                else if (userInput == 3)
+                else if (userInput == 0)
                 {
                     Console.WriteLine("Good Bye!");
                     Environment.Exit(0);                    

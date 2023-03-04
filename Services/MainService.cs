@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Reflection.Metadata;
 using Helper;
+using Movie_Library_Assignment.Context;
 
 namespace Movie_Library_Assignment.Services
 {

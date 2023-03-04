@@ -9,11 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Context\movies.json" />
+    <None Remove="Data\shows.json" />
+    <None Remove="Data\videos.json" />
     <None Remove="movies.csv" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="movies.csv">
+    <EmbeddedResource Include="Data\movies.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\movies.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\shows.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\videos.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movie_Library_Assignment.Services
+namespace Movie_Library_Assignment.Services.CSVFileService
 {
     internal class Genre
     {

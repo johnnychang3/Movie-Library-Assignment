@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movie_Library_Assignment.Services
+namespace Movie_Library_Assignment.Services.CSVFileService
 {
     public class CsvFileService : IFileService
     {
-        string file = $"{Environment.CurrentDirectory}\\movies.csv";
+        string file = $"{Environment.CurrentDirectory}\\Data\\movies.csv";
         string[] arr;
         StreamReader sr;
         StreamWriter sw;
@@ -24,14 +24,12 @@ namespace Movie_Library_Assignment.Services
             }
             else
             {
-                Console.WriteLine("Movie Library");
-                Console.WriteLine("-------------\n");
                 while (!menuExit)
                 {
-                    Console.WriteLine("CSV File Main Menu");
-                    Console.WriteLine("------------------");
+                    Console.WriteLine("CSV File Media Main Menu");
+                    Console.WriteLine("------------------------");
 
-                    var userInput = Input.GetIntWithPrompt("1. Add New Movie\n2. Display Movies\n3. Exit\nChoose Option: ", "Choose a valid option.");
+                    var userInput = Input.GetIntWithPrompt("1. Add New Media\n2. Display Media\n\n0. Exit\nChoose Option: ", "Choose a valid option.");
                     switch (userInput)
                     {
                         case 1:
@@ -41,7 +39,7 @@ namespace Movie_Library_Assignment.Services
                         case 2:
                             Display();
                             break;
-                        case 3:
+                        case 0:
                             menuExit = true;
                             Console.WriteLine("Good Bye!\n");
                             break;
@@ -52,7 +50,7 @@ namespace Movie_Library_Assignment.Services
         public void Write()
         {
             bool exitM = false;
-            Console.WriteLine("\nAdd New Movie");
+            Console.WriteLine("\nAdd New Media");
             Console.WriteLine("-------------\n");
 
             movies.Add(new Movie());
@@ -95,9 +93,9 @@ namespace Movie_Library_Assignment.Services
             bool disExit = false;
             do
             {
-                Console.WriteLine("\nDisplay Movies Menu");
+                Console.WriteLine("\nDisplay Media Menu");
                 Console.WriteLine("-------------------");
-                var userInput = Input.GetIntWithPrompt("1. Display All\n2. Exit\nChoose Option: ", "Choose a valid option: ");
+                var userInput = Input.GetIntWithPrompt("1. Display All\n0. Exit\nChoose Option: ", "Choose a valid option: ");
 
                 sr = new StreamReader(file);
                 var table = new Table();
@@ -146,7 +144,7 @@ namespace Movie_Library_Assignment.Services
                         }
                     }
                 }
-                else if (userInput == 2)
+                else if (userInput == 0)
                 {
                     sr.Close();
                     disExit = true;
