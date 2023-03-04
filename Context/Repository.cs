@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Helper;
 using Movie_Library_Assignment.Models;
@@ -36,13 +37,15 @@ namespace Movie_Library_Assignment.Context
                     {
                         item.Display();
                     }
-                    
+
                     exit = true;
                 }
                 else if (userInput == 2) //Shows
                 {
                     _mediaContext.GetShowsJson();
-
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("            Shows            ");
+                    Console.WriteLine("-----------------------------");
                     foreach (var item in _mediaContext.Shows)
                     {
                         item.Display();
@@ -53,7 +56,9 @@ namespace Movie_Library_Assignment.Context
                 else if (userInput == 3) //Videos
                 {
                     _mediaContext.GetVideosJson();
-
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("           Videos            ");
+                    Console.WriteLine("-----------------------------");
                     foreach (var item in _mediaContext.Videos)
                     {
                         item.Display();
@@ -88,7 +93,7 @@ namespace Movie_Library_Assignment.Context
                     _mediaContext.GetMoviesJson();
 
                     var userInputTitle = Input.GetStringWithPrompt("Enter Movie title: ", "Movie title required.\nEnter Movie title: ");
-                   
+
                     foreach (var movie in _mediaContext.Movies)
                     {
                         if (movie.Title.ToLower() == userInputTitle.ToLower())
@@ -156,5 +161,41 @@ namespace Movie_Library_Assignment.Context
             }
             while (!exit);
         }
+
+        public void WriteJson()
+        {
+            bool exit = false;
+
+            do
+            {
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("        Add new media        ");
+                Console.WriteLine("-----------------------------");
+
+                var userInput = Input.GetIntWithPrompt("1. Add new movie\n2. Add new Show\n3. Add new Video\n\n0. Exit\nChoose Option: ", "Please choose a valid option.");
+
+                if (userInput == 1)
+                {
+                    _mediaContext.WriteMoviesJson();
+                }
+                else if (userInput == 2)
+                {
+
+                }
+                else if (userInput == 3)
+                {
+
+                }
+                else if (userInput == 0)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please choose a valid option.");
+                }
+            } while (!exit);
+        } // Write media json format
+
     }
 }

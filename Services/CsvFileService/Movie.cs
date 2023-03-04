@@ -19,7 +19,7 @@ namespace Movie_Library_Assignment.Services.CSVFileService
 
         public Movie()
         {
-            string file = $"{Environment.CurrentDirectory}\\movies.csv";
+            string file = $"{Environment.CurrentDirectory}\\Data\\movies.csv";
             StreamReader sr = new StreamReader(file);
             var lastId = "";
             string[] arr = null;

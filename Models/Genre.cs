@@ -10,6 +10,14 @@ namespace Movie_Library_Assignment.Models
     public class Genre
     {
         public string Genres { get; set; }
-       
+
+        public override string ToString()
+        {
+            foreach (var item in Genres) 
+            {
+                Genres = item.ToString();
+            }
+            return Genres;
+        }
     }
 }

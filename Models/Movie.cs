@@ -12,6 +12,10 @@ namespace Movie_Library_Assignment.Models
     {
         public List<string> Genres { get; set; }
 
+        public Movie ()
+        {
+            
+        }
         public override void Display()
         {
             string genres = string.Join("|", Genres);
