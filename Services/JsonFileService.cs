@@ -1,52 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Helper;
+﻿using Helper;
+using Movie_Library_Assignment.Context;
+
 
 namespace Movie_Library_Assignment.Services
 {
     public class JsonFileService : IFileService
     {
-        public void Menu()
+        public void Menu() // Main Menu
         {
             bool menuExit = false;
 
-            Console.WriteLine("Movie Library");
-            Console.WriteLine("-------------\n");
+            Console.Clear();
             while (!menuExit)
             {
-                Console.WriteLine("JSON File Main Menu");
-                Console.WriteLine("-------------------");
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("  JSON File Media Main Menu  ");
+                Console.WriteLine("-----------------------------");
 
-                var userInput = Input.GetIntWithPrompt("1. Add New Movie\n2. Display Movies\n3. Exit\nChoose Option: ", "Choose a valid option.");
+                var userInput = Input.GetIntWithPrompt("1. Add New Media\n2. Display Media\n\n0. Exit\nChoose Option: ", "Choose a valid option.");
                 switch (userInput)
                 {
                     case 1:
                         Write();
+                        Console.Clear();
                         break;
 
                     case 2:
                         Display();
+                        Console.Clear();
                         break;
-                    case 3:
+                    case 0:
                         menuExit = true;
-                        Console.WriteLine("Good Bye!\n");
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------");
+                        Console.WriteLine("           Good Bye          ");
+                        Console.WriteLine("-----------------------------");
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Choose a valid option.\n");
                         break;
                 }
             }
-
         }
 
-        public void Write ()
+        public void Write() // Write
         {
+            MediaContext context = new MediaContext();
+            Repository repo = new Repository(context);
 
+            Console.Clear();
+            repo.WriteJson();
         }
 
-        public void Display()
+        public void Display() // Display
         {
+            MediaContext context = new MediaContext();
+            Repository repo = new Repository(context);
+            bool exit = false;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("         Display Menu        ");
+                Console.WriteLine("-----------------------------");
+                var userInput = Input.GetIntWithPrompt("1. Display Media by Type\n2. Display Media by Title\n\n0. Go Back\nChoose Option: ", "Choose a valid option: ");
 
+                if (userInput == 1) // Display by Type
+                {
+                    Console.Clear();
+                    repo.SearchByTypeJson();
+
+                    exit = true;
+                }
+                else if (userInput == 2) // Display by Title
+                {
+                    Console.Clear();
+                    repo.SearchByTitleJson();
+
+                    exit = true;
+                }
+                else if (userInput == 0) // Exit
+                {
+                    Console.Clear();
+                    exit = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Choose a valid option");
+                }
+            } while (!exit);
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics.Metrics;
-using System.IO;
-using System.Runtime.CompilerServices;
-using Helper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Movie_Library_Assignment.Services;
 
 namespace Movie_Library_Assignment

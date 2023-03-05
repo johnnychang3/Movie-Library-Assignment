@@ -26,11 +26,12 @@ namespace Movie_Library_Assignment
 
             bool exit = false;
 
-            Console.WriteLine("Main Menu");
-            Console.WriteLine("---------");
             while (!exit)
             {
-                var userInput = Input.GetIntWithPrompt("1. CSV File Reader\n2. JSON File Reader\n3. Exit\nChoose option: ", "Choose a valid option:");
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("          Main Menu          ");
+                Console.WriteLine("-----------------------------");
+                var userInput = Input.GetIntWithPrompt("1. CSV File Reader\n2. JSON File Reader\n\n0. Exit\nChoose option: ", "Choose a valid option: ");
                 if (userInput == 1)
                 {
                     services.AddSingleton<IFileService, CsvFileService>();
@@ -41,10 +42,18 @@ namespace Movie_Library_Assignment
                     services.AddSingleton<IFileService, JsonFileService>();
                     exit = true;
                 }
-                else if (userInput == 3)
+                else if (userInput == 0)
                 {
-                    Console.WriteLine("Good Bye!");
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("          Good Bye          ");
+                    Console.WriteLine("-----------------------------");
                     Environment.Exit(0);                    
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Choose a valid option.");
                 }
             }
 

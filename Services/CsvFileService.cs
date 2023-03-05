@@ -1,163 +1,97 @@
 ﻿using Helper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Movie_Library_Assignment.Models;
+using Movie_Library_Assignment.Context;
+
 
 namespace Movie_Library_Assignment.Services
 {
     public class CsvFileService : IFileService
     {
-        string file = $"{Environment.CurrentDirectory}\\movies.csv";
-        string[] arr;
-        StreamReader sr;
-        StreamWriter sw;
-        List<Movie> movies = new List<Movie>();
+
+
         public void Menu()
         {
             bool menuExit = false;
 
-            if (!File.Exists(file))
+            Console.Clear();
+            while (!menuExit)
             {
-                Console.WriteLine("File does not exist");
-            }
-            else
-            {
-                Console.WriteLine("Movie Library");
-                Console.WriteLine("-------------\n");
-                while (!menuExit)
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("   CSV File Media Main Menu  ");
+                Console.WriteLine("-----------------------------");
+
+                var userInput = Input.GetIntWithPrompt("1. Add New Media\n2. Display Media\n\n0. Exit\nChoose Option: ", "Choose a valid option.");
+                switch (userInput)
                 {
-                    Console.WriteLine("CSV File Main Menu");
-                    Console.WriteLine("------------------");
+                    case 1:
+                        Write();
+                        Console.Clear();
+                        break;
 
-                    var userInput = Input.GetIntWithPrompt("1. Add New Movie\n2. Display Movies\n3. Exit\nChoose Option: ", "Choose a valid option.");
-                    switch (userInput)
-                    {
-                        case 1:
-                            Write();
-                            break;
-
-                        case 2:
-                            Display();
-                            break;
-                        case 3:
-                            menuExit = true;
-                            Console.WriteLine("Good Bye!\n");
-                            break;
-                    }
+                    case 2:
+                        Display();
+                        Console.Clear();
+                        break;
+                    case 0:
+                        menuExit = true;
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------");
+                        Console.WriteLine("           Good Bye          ");
+                        Console.WriteLine("-----------------------------");
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Choose a valid option.\n"); 
+                        break;
                 }
             }
         }
         public void Write()
         {
-            bool exitM = false;
-            Console.WriteLine("\nAdd New Movie");
-            Console.WriteLine("-------------\n");
-
-            movies.Add(new Movie());
-
-            if (movies[movies.Count - 1].Title.Length == 0)
-            {
-                movies.RemoveAt(movies.Count - 1);
-            }
-            else
-            {
-                Console.WriteLine(movies[movies.Count - 1]);
-                do
-                {
-                    var addMovConfirmation = Input.GetCharWithPrompt("Is the entry correct? Y/N", "Enter a valid option: ");
-
-                    if (addMovConfirmation == 'N')
-                    {
-                        Console.WriteLine("Re-enter the movie.");
-                        movies.RemoveAt(movies.Count - 1);
-                        exitM = true;
-                    }
-                    else if (addMovConfirmation == 'Y')
-                    {
-                        sw = new StreamWriter(file, true);
-                        Console.WriteLine(movies[movies.Count - 1]);
-                        sw.WriteLine(movies[movies.Count - 1]);
-                        sw.Close();
-                        Console.WriteLine("\nMovie succesfully added.\n");
-                        exitM = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter a valid option.");
-                    }
-                } while (!exitM);
-            }
+            MediaContext context = new MediaContext();
+            Repository repo = new Repository(context);
+            Console.Clear();
+            repo.WriteCsv();
         }
         public void Display()
         {
-            bool disExit = false;
+            MediaContext context = new MediaContext();
+            Repository repo = new Repository(context);
+
+            bool exit = false;
             do
             {
-                Console.WriteLine("\nDisplay Movies Menu");
-                Console.WriteLine("-------------------");
-                var userInput = Input.GetIntWithPrompt("1. Display All\n2. Exit\nChoose Option: ", "Choose a valid option: ");
+                Console.Clear();
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("         Display Menu        ");
+                Console.WriteLine("-----------------------------");
+                var userInput = Input.GetIntWithPrompt("1. Display Media by Type\n2. Display Media by Title\n\n0. Go Back\nChoose Option: ", "Choose a valid option: ");
 
-                sr = new StreamReader(file);
-                var table = new Table();
-                table.SetHeaders("MovieID", "Title", "Genres");
-                sr.ReadLine();
-
-                if (userInput == 1)
+                if (userInput == 1) // Display by Type
                 {
-                    while (!sr.EndOfStream)
-                    {
-
-                        for (int i = 0; i < 10; i++)
-                        {
-                            var line = sr.ReadLine();
-
-                            if (line == null)
-                            {
-                                break;
-                            }
-                            else if (line.Contains('"'))
-                            {
-                                arr = line.Split('"');
-                                table.AddRow($"{arr[0].Trim(',')}", arr[1], arr[2].Trim(','));
-                            }
-                            else
-                            {
-                                arr = line.Split(',');
-                                table.AddRow($"{arr[0]}", arr[1], arr[2]);
-                            }
-                        }
-                        Console.WriteLine(table.ToString());
-                        table.ClearRows();
-                        Console.WriteLine("Press Enter to view more, To Exit: e");
-                        var exit = Console.ReadLine();
-                        if (exit == "e")
-                        {
-                            sr.Close();
-                            break;
-                        }
-                        else if (sr.EndOfStream)
-                        {
-                            Console.WriteLine("End of list.");
-                            Console.ReadLine();
-                            sr.Close();
-                            break;
-                        }
-                    }
+                    Console.Clear();
+                    repo.SearchByTypeCsv();
+                    exit = true;
                 }
-                else if (userInput == 2)
+                else if (userInput == 2) // Display by Title
                 {
-                    sr.Close();
-                    disExit = true;
+                    Console.Clear();
+                    repo.SearchByTitleJson();
+
+                    exit = true;
+                }
+                else if (userInput == 0) // Exit
+                {
+                    Console.Clear();
+                    exit = true;
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("Choose a valid option");
                 }
-            } while (!disExit);
-            Console.WriteLine("");
-            sr.Close();
+            } while (!exit);
+
         }
     }
 }

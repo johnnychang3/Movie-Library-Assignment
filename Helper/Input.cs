@@ -65,7 +65,7 @@ namespace Helper
         public static string GetStringWithPrompt(string? prompt, string? errorMessage)
         {
             if (!String.IsNullOrEmpty(prompt))
-                Console.WriteLine(prompt);
+                Console.Write(prompt);
             
 
             do
@@ -79,7 +79,7 @@ namespace Helper
                 else
                 {
                     if (!String.IsNullOrEmpty(errorMessage))
-                        Console.WriteLine(errorMessage);
+                        Console.Write(errorMessage);
                 }
             } while (true);
         }
