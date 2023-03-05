@@ -10,7 +10,10 @@
 
   <ItemGroup>
     <None Remove="Context\movies.json" />
+    <None Remove="Data\movies10.csv" />
+    <None Remove="Data\shows.csv" />
     <None Remove="Data\shows.json" />
+    <None Remove="Data\videos.csv" />
     <None Remove="Data\videos.json" />
     <None Remove="movies.csv" />
   </ItemGroup>
@@ -22,7 +25,13 @@
     <EmbeddedResource Include="Data\movies.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Data\movies10.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Data\shows.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\videos.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\videos.json">
@@ -35,6 +44,12 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NReco.Logging.File" Version="1.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\shows.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

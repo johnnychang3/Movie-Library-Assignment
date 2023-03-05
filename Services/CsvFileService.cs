@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Helper;
+﻿using Helper;
+using Movie_Library_Assignment.Models;
 using Movie_Library_Assignment.Context;
-using Newtonsoft.Json;
 
-namespace Movie_Library_Assignment.Services.JsonFileService
+
+namespace Movie_Library_Assignment.Services
 {
-    public class JsonFileService : IFileService
+    public class CsvFileService : IFileService
     {
-        //string file = $"{Environment.CurrentDirectory}\\Data\\movies.json";
 
-        //StreamReader sr;
-        //StreamWriter sw;
-        //List<Movie> movies = new List<Movie>();
 
-        public void Menu() // Main Menu
+        public void Menu()
         {
             bool menuExit = false;
 
@@ -25,7 +17,7 @@ namespace Movie_Library_Assignment.Services.JsonFileService
             while (!menuExit)
             {
                 Console.WriteLine("-----------------------------");
-                Console.WriteLine("  JSON File Media Main Menu  ");
+                Console.WriteLine("   CSV File Media Main Menu  ");
                 Console.WriteLine("-----------------------------");
 
                 var userInput = Input.GetIntWithPrompt("1. Add New Media\n2. Display Media\n\n0. Exit\nChoose Option: ", "Choose a valid option.");
@@ -44,30 +36,28 @@ namespace Movie_Library_Assignment.Services.JsonFileService
                         menuExit = true;
                         Console.Clear();
                         Console.WriteLine("-----------------------------");
-                        Console.WriteLine("          Good Bye          ");
+                        Console.WriteLine("           Good Bye          ");
                         Console.WriteLine("-----------------------------");
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Choose a valid option.\n"); 
                         break;
                 }
             }
         }
-
-        public void Write() // Write
+        public void Write()
         {
             MediaContext context = new MediaContext();
             Repository repo = new Repository(context);
-            bool exit = false;
-
-
             Console.Clear();
-            repo.WriteJson();
-
+            repo.WriteCsv();
         }
-
-
-        public void Display() // Display
+        public void Display()
         {
             MediaContext context = new MediaContext();
             Repository repo = new Repository(context);
+
             bool exit = false;
             do
             {
@@ -75,13 +65,12 @@ namespace Movie_Library_Assignment.Services.JsonFileService
                 Console.WriteLine("-----------------------------");
                 Console.WriteLine("         Display Menu        ");
                 Console.WriteLine("-----------------------------");
-                var userInput = Input.GetIntWithPrompt("1. Display Media by Type\n2. Display Media by Title\n\n0. Exit\nChoose Option: ", "Choose a valid option: ");
+                var userInput = Input.GetIntWithPrompt("1. Display Media by Type\n2. Display Media by Title\n\n0. Go Back\nChoose Option: ", "Choose a valid option: ");
 
                 if (userInput == 1) // Display by Type
                 {
                     Console.Clear();
-                    repo.SearchByTypeJson();
-
+                    repo.SearchByTypeCsv();
                     exit = true;
                 }
                 else if (userInput == 2) // Display by Title
@@ -102,6 +91,7 @@ namespace Movie_Library_Assignment.Services.JsonFileService
                     Console.WriteLine("Choose a valid option");
                 }
             } while (!exit);
+
         }
     }
 }
