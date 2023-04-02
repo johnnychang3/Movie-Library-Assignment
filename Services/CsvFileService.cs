@@ -65,18 +65,26 @@ namespace Movie_Library_Assignment.Services
                 Console.WriteLine("-----------------------------");
                 Console.WriteLine("         Display Menu        ");
                 Console.WriteLine("-----------------------------");
-                var userInput = Input.GetIntWithPrompt("1. Display Media by Type\n2. Display Media by Title\n\n0. Go Back\nChoose Option: ", "Choose a valid option: ");
+                var userInput = Input.GetIntWithPrompt("1. Display Media by Type\n2. Display Media by Title\n3. Search All Media Title by Keyword\n\n0. Go Back\nChoose Option: ", "Choose a valid option: ");
 
                 if (userInput == 1) // Display by Type
                 {
                     Console.Clear();
                     repo.SearchByTypeCsv();
+
                     exit = true;
                 }
                 else if (userInput == 2) // Display by Title
                 {
                     Console.Clear();
                     repo.SearchByTitleJson();
+
+                    exit = true;
+                }
+                else if (userInput == 3) // Search & display all media Title by keyword
+                {
+                    Console.Clear();
+                    repo.SearchAllByTitleCsv();
 
                     exit = true;
                 }

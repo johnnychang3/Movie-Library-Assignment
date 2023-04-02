@@ -76,7 +76,7 @@ namespace Movie_Library_Assignment.Context
             } while (!exit);
         }
 
-        public void SearchByTitleJson() // Display media by Title JSON file
+        public void SearchByTitleJson() // Display media by Title & Type JSON file
         {
             bool exit = false;
             do
@@ -163,6 +163,60 @@ namespace Movie_Library_Assignment.Context
             }
             while (!exit);
         }
+        
+        public void SearchAllByTitleJson() // Search and display all media Title by keyword JSON
+        {
+            bool exit = false;
+            _mediaContext.GetVideosJson();
+            _mediaContext.GetMoviesJson();
+            _mediaContext.GetShowsJson();
+
+            do
+            {
+
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("           Display           ");
+                Console.WriteLine("-----------------------------");
+                var userInput = Input.GetStringWithPrompt("Enter a Keyword: ", "Keyword Required!\nEnter a Keyword: ");
+                Console.Clear();
+                var mResults = _mediaContext.Movies.Where(m => m.Title.Contains(userInput, StringComparison.CurrentCultureIgnoreCase));
+                var sResults = _mediaContext.Shows.Where(s => s.Title.Contains(userInput, StringComparison.CurrentCultureIgnoreCase));
+                var vResults = _mediaContext.Videos.Where(v => v.Title.Contains(userInput, StringComparison.CurrentCultureIgnoreCase));
+
+                if (mResults.ToList().Count + sResults.ToList().Count + vResults.ToList().Count > 0)
+                {
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("           Display           ");
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine($"Total of matches found: {mResults.ToList().Count + sResults.ToList().Count + vResults.ToList().Count}\n");
+                    foreach (var movie in mResults)
+                    {
+                        Console.WriteLine($"{"Type:",-10}Movie");
+                        movie.Display();
+                    }
+
+                    foreach (var show in sResults)
+                    {
+                        Console.WriteLine($"{"Type:",-10}Show");
+                        show.Display();
+                    }
+
+                    foreach (var video in vResults)
+                    {
+                        Console.WriteLine($"{"Type:",-10}Video");
+                        video.Display();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No matches found\n");
+                }
+                Console.WriteLine("Press Enter when done.");
+                Console.ReadLine();
+                exit = true;
+            }
+            while (!exit);
+        }
 
         public void WriteJson() // Write media in json format
         {
@@ -197,7 +251,7 @@ namespace Movie_Library_Assignment.Context
                     Console.WriteLine("Please choose a valid option.");
                 }
             } while (!exit);
-        } 
+        }
 
         public void SearchByTypeCsv() // Display all by media type CSV
         {
@@ -264,7 +318,7 @@ namespace Movie_Library_Assignment.Context
             } while (!exit);
         }
 
-        public void SearchByTitleCsv() // Display media by Title CSV file
+        public void SearchByTitleCsv() // Display media by Title & type CSV file
         {
             bool exit = false;
             do
@@ -348,6 +402,60 @@ namespace Movie_Library_Assignment.Context
                 {
                     exit = true;
                 }
+            }
+            while (!exit);
+        }
+
+        public void SearchAllByTitleCsv() // Search & display all media Title by keyword CSV file
+        {
+            bool exit = false;
+            _mediaContext.GetVideosCsv();
+            _mediaContext.GetMoviesCsv();
+            _mediaContext.GetShowsCsv();
+
+            do
+            {
+
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("           Display           ");
+                Console.WriteLine("-----------------------------");
+                var userInput = Input.GetStringWithPrompt("Enter a Keyword: ", "Keyword Required!\nEnter a Keyword: ");
+                Console.Clear();
+                var mResults = _mediaContext.Movies.Where(m => m.Title.Contains(userInput, StringComparison.CurrentCultureIgnoreCase));
+                var sResults = _mediaContext.Shows.Where(s => s.Title.Contains(userInput, StringComparison.CurrentCultureIgnoreCase));
+                var vResults = _mediaContext.Videos.Where(v => v.Title.Contains(userInput, StringComparison.CurrentCultureIgnoreCase));
+
+                if (mResults.ToList().Count + sResults.ToList().Count + vResults.ToList().Count > 0)
+                {
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("           Display           ");
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine($"Total of matches found: {mResults.ToList().Count + sResults.ToList().Count + vResults.ToList().Count}\n");
+                    foreach (var movie in mResults)
+                    {
+                        Console.WriteLine($"{"Type:",-10}Movie");
+                        movie.Display();
+                    }
+
+                    foreach (var show in sResults)
+                    {
+                        Console.WriteLine($"{"Type:",-10}Show");
+                        show.Display();
+                    }
+
+                    foreach (var video in vResults)
+                    {
+                        Console.WriteLine($"{"Type:",-10}Video");
+                        video.Display();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No matches found\n");
+                }
+                Console.WriteLine("Press Enter when done.");
+                Console.ReadLine();
+                exit = true;
             }
             while (!exit);
         }
